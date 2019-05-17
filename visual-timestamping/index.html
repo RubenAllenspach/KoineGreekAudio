@@ -1,0 +1,136 @@
+<style>
+    #waveform {
+        overflow-x: hidden;
+    }
+
+    .mt-3 {
+        margin-top: 3em;
+    }
+</style>
+
+<div class="mt-3" id="waveform"></div>
+<div class="mt-3" id="time"></div>
+<div class="mt-3" id="time-log">
+    <ul>
+
+    </ul>
+</div>
+
+<script src="mousetrap.min.js"></script>
+<script src="wavesurfer.js"></script>
+
+<script type="text/javascript">
+    function printTime(wavesurfer)
+    {
+        document.getElementById('time').innerHTML = (
+            'seconds: ' + parseInt(wavesurfer.getCurrentTime()) + '<br>' +
+            'miliseconds: ' + parseInt(wavesurfer.getCurrentTime() * 1000)
+        );
+    }
+
+    var zoom = 0;
+
+    var wavesurfer = WaveSurfer.create({
+        container:     '#waveform',
+        waveColor:     'violet',
+        progressColor: 'purple'
+        // backend:       'MediaElement'
+    });
+
+    wavesurfer.load('1jo02g.mp3');
+    wavesurfer.on('ready', function () {
+        wavesurfer.play();
+    });
+
+    function zoomUp() {
+        zoom = zoom + 10;
+        wavesurfer.zoom(zoom);
+    }
+
+    function zoomDown() {
+        zoom = zoom - 10;
+        wavesurfer.zoom(zoom);
+    }
+
+    window.addEventListener('wheel', function(e) {
+        if (e.deltaY < 0) {
+            zoomUp();
+        }
+
+        if (e.deltaY > 0) {
+            zoomDown();
+        }
+    });
+
+    Mousetrap.bind('ctrl+up', function(e) {
+        zoomUp();
+    });
+
+    Mousetrap.bind('ctrl+down', function(e) {
+        zoomDown();
+    });
+
+    wavesurfer.on('audioprocess', function () {
+        printTime(wavesurfer);
+    });
+
+    wavesurfer.on('interaction', function () {
+        printTime(wavesurfer);
+    });
+
+    Mousetrap.bind(['p', 'space'], function(e) {
+        wavesurfer.playPause();
+    });
+
+    Mousetrap.bind('left', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() - 0.25);
+    });
+
+    Mousetrap.bind('right', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() + 0.25);
+    });
+
+    Mousetrap.bind('ctrl+shift+left', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() - 0.025);
+    });
+
+    Mousetrap.bind('ctrl+shift+right', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() + 0.025);
+    });
+
+    Mousetrap.bind('shift+left', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() - 0.1);
+    });
+
+    Mousetrap.bind('shift+right', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() + 0.1);
+    });
+
+    Mousetrap.bind('ctrl+left', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() - 1);
+    });
+
+    Mousetrap.bind('ctrl+right', function(e) {
+        wavesurfer.setCurrentTime(wavesurfer.getCurrentTime() + 1);
+    });
+
+    Mousetrap.bind('up', function(e) {
+        wavesurfer.setPlaybackRate(wavesurfer.getPlaybackRate() + 0.1);
+    });
+
+    Mousetrap.bind('down', function(e) {
+        wavesurfer.setPlaybackRate(wavesurfer.getPlaybackRate() - 0.1);
+    });
+
+    Mousetrap.bind(['t', 'l'], function(e) {
+        var miliseconds = parseInt(wavesurfer.getCurrentTime() * 1000);
+
+        console.log(miliseconds);
+        document.querySelector('#time-log ul').innerHTML += '<li>' + miliseconds + '</li>';
+    });
+
+    Mousetrap.bind('d', function(e) {
+        var ul = document.querySelector('#time-log ul');
+        ul.removeChild(ul.lastChild);
+    });
+</script>
