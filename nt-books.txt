@@ -1,0 +1,27 @@
+01; Matthew; Matthäus
+02; Mark; Markus
+03; Luke; Lukas
+04; John; Johannes
+05; Acts of the Apostles; Apostelgeschichte
+06; Romans; Römer
+07; 1 Corinthians; 1. Korinther
+08; 2 Corinthians; 2. Korinther
+09; Galatians; Galater
+10; Ephesians; Epheser
+11; Philippians; Philipper
+12; Colossians; Kolosser
+13; 1 Thessalonians; 1. Thessalonicher
+14; 2 Thessalonians; 2. Thessalonicher
+15; 1 Timothy; 1. Timotheus
+16; 2 Timothy; 2. Timotheus
+17; Titus; Titus
+18; Philemon; Philemon
+19; Hebrews; Hebräer
+20; James; Jakobus
+21; 1 Peter; 1. Petrus
+22; 2 Peter; 2. Petrus
+23; 1 John; 1. Johannes
+24; 2 John; 2. Johannes
+25; 3 John; 3. Johannes
+26; Jude; Judas
+27; Revelation; Offenbarung
